@@ -13,3 +13,32 @@ exports.create = async (categoria) => {
 
     return res.rows[0];
 };
+
+exports.update = async (id, categoria) => {
+    const { nombre } = categoria;
+
+    const res = await db.query(
+        `
+        UPDATE categorias
+        SET nombre = $1
+        WHERE id = $2
+        RETURNING *
+        `,
+        [nombre, id]
+    );
+
+    return res.rows[0];
+};
+
+exports.remove = async (id) => {
+    const res = await db.query(
+        `
+        DELETE FROM categorias
+        WHERE id = $1
+        RETURNING *
+        `,
+        [id]
+    );
+
+    return res.rows[0];
+};

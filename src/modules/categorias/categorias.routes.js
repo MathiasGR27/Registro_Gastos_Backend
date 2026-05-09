@@ -14,4 +14,19 @@ router.post(
     controller.createCategoria
 );
 
+router.put(
+    "/:id",
+    auth,
+    requireRole("admin"),
+    controller.updateCategoria
+);
+
+router.delete(
+    "/:id",
+    auth,
+    requireRole("admin"),
+    controller.deleteCategoria
+);
+
+
 module.exports = router;    
