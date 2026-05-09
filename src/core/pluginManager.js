@@ -4,10 +4,10 @@ function register(plugin) {
     plugins.push(plugin);
 }
 
-function executeAll(data) {
+function executeAll(data, context = {}) {
     return plugins.map(p => ({
         plugin: p.name,
-        result: p.execute(data)
+        result: p.execute(data, context)
     }));
 }
 

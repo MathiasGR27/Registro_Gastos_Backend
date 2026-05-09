@@ -1,4 +1,5 @@
 const service = require("./gastos.service");
+const pluginManager = require("../../core/pluginManager");
 
 exports.getMisGastos = async (req, res) => {
     const { inicio, fin } = req.query;
@@ -27,4 +28,21 @@ exports.deleteGasto = async (req, res) => {
     const data = await service.remove(gastoId, usuarioId);
 
     res.json(data);
+};
+
+exports.exportPDF = async (req, res) => {
+
+    const gastos = await service.obtenerGastosUsuario(
+        req.user.id
+    );
+
+    const plugins = pluginManager.executeAll(gastos, {
+        usuario: req.user
+    });
+
+    const pdfPlugin = plugins.find(
+        p => p.plugin === "pdf"
+    );
+
+    pdfPlugin.result.generarPDF(res);
 };

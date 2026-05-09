@@ -3,11 +3,11 @@ module.exports = {
 
     execute(data) {
 
-        // 🔹 Gráfico por categoría (pie chart)
+        // Gráfico por categoría
         const porCategoria = {};
 
         data.forEach(gasto => {
-            const cat = gasto.categoria_id;
+            const cat = gasto.categoria || "Sin categoría";
 
             if (!porCategoria[cat]) {
                 porCategoria[cat] = 0;
@@ -17,15 +17,15 @@ module.exports = {
         });
 
         const pieChart = Object.keys(porCategoria).map(cat => ({
-            name: `Categoria ${cat}`,
+            name: cat,
             value: porCategoria[cat]
         }));
 
-        // 🔹 Gráfico por fecha (line chart)
+        // Gráfico por fecha
         const porFecha = {};
 
         data.forEach(gasto => {
-            const fecha = new Date(gasto.fecha).toISOString().split('T')[0];
+            const fecha = new Date(gasto.fecha).toISOString().split("T")[0];
 
             if (!porFecha[fecha]) {
                 porFecha[fecha] = 0;
