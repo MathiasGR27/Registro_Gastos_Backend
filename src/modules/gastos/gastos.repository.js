@@ -35,3 +35,34 @@ exports.create = async (gasto, usuarioId) => {
 
     return res.rows[0];
 };
+
+exports.update = async (gastoId, gasto, usuarioId) => {
+    const { categoria_id, monto, descripcion } = gasto;
+
+    const res = await db.query(
+        `
+        UPDATE gastos
+        SET categoria_id = $1,
+            monto = $2,
+            descripcion = $3
+        WHERE id = $4 AND usuario_id = $5
+        RETURNING *
+        `,
+        [categoria_id, monto, descripcion, gastoId, usuarioId]
+    );
+
+    return res.rows[0];
+};
+
+exports.remove = async (gastoId, usuarioId) => {
+    const res = await db.query(
+        `
+        DELETE FROM gastos
+        WHERE id = $1 AND usuario_id = $2
+        RETURNING *
+        `,
+        [gastoId, usuarioId]
+    );
+
+    return res.rows[0];
+};

@@ -11,3 +11,11 @@ exports.getMisGastos = async (usuarioId, inicio, fin) => {
 exports.create = async (data, usuarioId) => {
     return await repo.create(data, usuarioId);
 };
+
+exports.update = async (gastoId, data, usuarioId) => {
+    return await repo.update(gastoId, data, usuarioId);
+};
+
+exports.remove = async (gastoId, usuarioId) => {
+    return await repo.remove(gastoId, usuarioId);
+};
