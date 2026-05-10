@@ -124,7 +124,7 @@ src/
 ## Clonar el repositorio
 
 ```bash
-git clone LINK_DEL_REPOSITORIO
+git clone https://github.com/MathiasGR27/Registro_Gastos_Backend.git
 ```
 
 ---
